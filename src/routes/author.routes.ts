@@ -113,7 +113,7 @@ authorRoutes.get("/name/:name", async (req: Request, res: Response, next: NextFu
 authorRoutes.delete("/:id", isAuth, async (req: any, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id;
-
+    console.log(req.author.user);
     if (req.author.id !== id && req.author.user !== "admin@gmail.com") {
       return res.status(401).json({ error: "No tienes permisos para realizar esta operacion." });
     }
@@ -154,7 +154,7 @@ authorRoutes.put("/:id", isAuth, async (req: any, res: Response, next: NextFunct
 });
 
 // Login de usuarios
-authorRoutes.post("/login", async (req, res, next) => {
+authorRoutes.post("/login", async (req: any, res: Response, next: NextFunction) => {
   try {
     // Declaracion de dos const con el mismo nombre que los campos que queremos del body
     const { user, password } = req.body;

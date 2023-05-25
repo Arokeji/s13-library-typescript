@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import { type IBook } from "./Book";
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const validCountries: string[] = ["COLOMBIA", "ENGLAND", "RUSSIA", "UNITED STATES", "ARGENTINA", "CZECHOSLOVAKIA", "JAPAN", "NIGERIA"];
@@ -57,14 +57,16 @@ const authorSchema = new Schema<IAuthor>({
 
 // Encriptado de la contraseña antes de que guarde
 // Usamos function en vez de una arrow para que pueda leer el this fuera de esta
-authorSchema.pre<IAuthor>("save", async function (next) {
+authorSchema.pre("save", async function (next) {
   try {
     // Si la contraseña ya estaba encriptada no la encripta de nuevo
-    if (authorSchema.methods.isModified("password")) {
+    if (this.isModified("password")) {
       const saltRounds = 10; // Dureza del ecriptado
       const hash = await bcrypt.hash(this.password as string, saltRounds);
       this.password = hash;
     }
+
+    next();
   } catch (error: any) {
     next(error);
   }
