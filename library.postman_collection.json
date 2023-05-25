@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "b4fcce00-f1d7-4401-84a8-630ba2f3c635",
+		"name": "Library",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25693045"
+	},
+	"item": [
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Get books (filtered)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/book/?page=2&limit=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"book",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get book by title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/book/title/harry",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"book",
+								"title",
+								"harry"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get specific book by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/book/6448df44145bb3c9572ddbc7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"book",
+								"6448df44145bb3c9572ddbc7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete specific book by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/book/6448df44145bb3c9572ddbc7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"book",
+								"6448df44145bb3c9572ddbc7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert a book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Oon Nota\",\r\n    \"author\": \"Josh Aufderhar\",\r\n    \"pages\": 113,\r\n    \"rating\": 7\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/book",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update specific book by ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pages\": \"545\"\r\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/book/6448df44145bb3c9572ddbc7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"book",
+								"6448df44145bb3c9572ddbc7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:3000",
+			"type": "string"
+		}
+	]
+}
