@@ -9,13 +9,10 @@ import { Author } from "../models/Author";
 // Export de rutas
 export const authorRoutes = express.Router();
 
-// Router de Author
-const router = express.Router();
-
 // Rutas
 // CRUD: Read
 // Ejemplo de request con parametros http://localhost:3000/author/?page=2&limit=10
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
+authorRoutes.get("/", (req: Request, res: Response, next: NextFunction) => {
   console.log("Estamos en el middleware /author que comprueba parámetros");
 
   try {
@@ -36,7 +33,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+authorRoutes.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Lectura de query parameters
     const page = parseInt(req.query.page as string);
@@ -62,7 +59,7 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
 });
 
 // CRUD: Create
-router.post("/", async (req: Request, res: Response, next: NextFunction) => {
+authorRoutes.post("/", async (req: Request, res: Response, next: NextFunction) => {
   console.log("Creando autor");
   try {
     const author = new Author({
@@ -80,7 +77,7 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
 });
 
 // CRUD: Read
-router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
+authorRoutes.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
   const id = req.params.id;
 
   try {
@@ -97,7 +94,7 @@ router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
 });
 
 // No CRUD. Busqueda personalizada
-router.get("/name/:name", async (req: Request, res: Response, next: NextFunction) => {
+authorRoutes.get("/name/:name", async (req: Request, res: Response, next: NextFunction) => {
   const name = req.params.name;
 
   try {
@@ -113,7 +110,7 @@ router.get("/name/:name", async (req: Request, res: Response, next: NextFunction
 });
 
 // CRUD: Delete con el middleware isAuth
-router.delete("/:id", isAuth, async (req: any, res: Response, next: NextFunction) => {
+authorRoutes.delete("/:id", isAuth, async (req: any, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id;
 
@@ -133,7 +130,7 @@ router.delete("/:id", isAuth, async (req: any, res: Response, next: NextFunction
 });
 
 // CRUD: Put con el middleware isAuth
-router.put("/:id", isAuth, async (req: any, res: Response, next: NextFunction) => {
+authorRoutes.put("/:id", isAuth, async (req: any, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id;
 
@@ -157,7 +154,7 @@ router.put("/:id", isAuth, async (req: any, res: Response, next: NextFunction) =
 });
 
 // Login de usuarios
-router.post("/login", async (req, res, next) => {
+authorRoutes.post("/login", async (req, res, next) => {
   try {
     // Declaracion de dos const con el mismo nombre que los campos que queremos del body
     const { user, password } = req.body;
@@ -194,5 +191,3 @@ router.post("/login", async (req, res, next) => {
     next(err);
   }
 });
-
-module.exports = { authorRoutes: router };

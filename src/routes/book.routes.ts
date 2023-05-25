@@ -12,13 +12,10 @@ export const bookRoutes = express.Router();
 // Configuracion de Multer para subida de archivos
 const upload = multer({ dest: "public" });
 
-// Router de Books
-const router = express.Router();
-
 // Rutas
 // CRUD: Read
 // Ejemplo de request con parametros http://localhost:3000/book/?page=2&limit=10
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
+bookRoutes.get("/", (req: Request, res: Response, next: NextFunction) => {
   console.log("Estamos en el middleware /book que comprueba parámetros");
 
   try {
@@ -39,7 +36,7 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.get("/", async (req: Request, res: Response) => {
+bookRoutes.get("/", async (req: Request, res: Response) => {
   try {
     // Lectura de query parameters
     const { page, limit } = req.query as any;
@@ -66,7 +63,7 @@ router.get("/", async (req: Request, res: Response) => {
 });
 
 // CRUD: Create
-router.post("/", async (req: Request, res: Response, next: NextFunction) => {
+bookRoutes.post("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const book = new Book({
       title: req.body.title,
@@ -87,7 +84,7 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
 });
 
 // CRUD: Read
-router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
+bookRoutes.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
   const id = req.params.id;
 
   try {
@@ -107,7 +104,7 @@ router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
 });
 
 // No CRUD. Busqueda personalizada
-router.get("/title/:title", async (req: Request, res: Response, next: NextFunction) => {
+bookRoutes.get("/title/:title", async (req: Request, res: Response, next: NextFunction) => {
   const title = req.params.title;
 
   try {
@@ -123,7 +120,7 @@ router.get("/title/:title", async (req: Request, res: Response, next: NextFuncti
 });
 
 // CRUD: Delete
-router.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
+bookRoutes.delete("/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id;
     const bookDeleted = await Book.findByIdAndDelete(id);
@@ -138,7 +135,7 @@ router.delete("/:id", async (req: Request, res: Response, next: NextFunction) =>
 });
 
 // CRUD: Put
-router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
+bookRoutes.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = req.params.id;
     const bookUpdated = await Book.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
@@ -152,7 +149,7 @@ router.put("/:id", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.post("/cover-upload", upload.single("cover"), async (req: Request, res: Response, next: NextFunction) => {
+bookRoutes.post("/cover-upload", upload.single("cover"), async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Renombrado de la imagen
     const originalName = req.file?.originalname as string;
